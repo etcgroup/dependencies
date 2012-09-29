@@ -1,0 +1,10 @@
+<project name="underscore">
+
+	<target name="underscore">
+		<get src="${underscore.url}" 
+			dest="${dep.cache.dir}/underscore-${underscore.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/underscore-${underscore.version}.js"
+			tofile="${underscore.js.file}"/>
+	</target>
+</project>

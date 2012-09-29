@@ -1,0 +1,27 @@
+<project name="dependencies">
+
+	<dirname property="dep.base.dir" file="${ant.file.dependencies}"/>
+	<property name="dep.cache.dir" value="${dep.base.dir}/_cache"/>
+	<mkdir dir="${dep.cache.dir}"/>
+	
+	<include>
+		<fileset dir="${dep.base.dir}">
+			<include name="*/build.xml"/>
+		</fileset>
+	</include>
+	
+	<target name="build">
+		<property file="${dep.base.dir}/${target}/default.properties"/>
+		<antcall target="dependencies.${target}">
+			<param name="${target}.basedir" value="${dep.base.dir}/${target}"/>
+			<param name="dep.cache.dir" value="${dep.cache.dir}/${target}"/>
+		</antcall>
+	</target>
+	
+	<target name="clean-cache">
+		<delete>
+			<fileset dir="${dep.cache.dir}"/>
+		</delete>
+	</target>
+	
+</project>

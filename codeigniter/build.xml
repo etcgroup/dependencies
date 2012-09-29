@@ -1,0 +1,24 @@
+<project name="codeigniter">
+
+		<!-- Download and unpack CodeIgniter -->
+	<target name="codeigniter">
+		<get src="${codeigniter.url}" 
+			dest="${dep.cache.dir}/${codeigniter.zip.file}" skipexisting="true" verbose="true"/>
+			
+		<unzip src="${dep.cache.dir}/${codeigniter.zip.file}" 
+			dest="${dep.build.dir}">
+			<!-- Pop files out of the EllisLab-Codeigniter-da4f9e1 directory or whatever -->
+			<mapper type="regexp"
+				from="^\w+-CodeIgniter-\w*/(.*)$"
+				to="\1" />
+			<!-- Exclude files we don't need -->
+			<patternset>
+				<exclude name="*/.travis.yml"/>
+				<exclude name="*/.gitignore"/>
+				<exclude name="*/license.txt"/>
+				<exclude name="*/user_guide/**"/>
+			</patternset>
+		</unzip>
+	</target>
+	
+</project>

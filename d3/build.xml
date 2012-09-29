@@ -1,0 +1,31 @@
+<project name="d3">
+
+	<target name="d3">
+		<get src="${d3.url}" 
+			dest="${dep.cache.dir}/d3-${d3.version}.zip" skipexisting="true" verbose="true"/>
+	
+		<unzip src="${dep.cache.dir}/d3-${d3.version}.zip" 
+			dest="${dep.build.dir}">
+			<patternset>
+				<include name="*/d3.v2.min.js"/>
+				<include name="*/lib/colorbrewer/colorbrewer.css"/>
+				<include name="*/lib/colorbrewer/colorbrewer.js"/>
+			</patternset>
+			<chainedmapper>
+				<mapper type="flatten"/>
+				<compositemapper>
+					<globmapper
+						from="d3.v2.min.js"
+						to="js/d3.js"/>
+					<globmapper
+						from="*.js"
+						to="js/*.js"/>
+					<globmapper
+						from="*.css"
+						to="css/*.css"/>
+				</compositemapper>
+			</chainedmapper>
+		</unzip>
+	
+	</target>
+</project>

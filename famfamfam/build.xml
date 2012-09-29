@@ -1,0 +1,21 @@
+<project name="famfamfam">
+
+	<target name="famfamfam">
+		
+		<get src="${famfamfam.url}"
+			dest="${dep.cache.dir}/famfamfam-${famfamfam.version}.zip" skipexisting="true" verbose="true"/>
+		
+		<unzip src="${dep.cache.dir}/famfamfam-${famfamfam.version}.zip" 
+			dest="${dep.build.dir}">
+			<patternset>
+				<include name="**/*.css"/>
+				<include name="**/*.png"/>
+			</patternset>
+			<regexpmapper
+				from="^\w+-\w+-\w+/(.*)$"
+				to="css/\1"/>
+		</unzip>
+		
+	</target>
+
+</project>

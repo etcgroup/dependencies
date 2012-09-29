@@ -1,0 +1,10 @@
+<project name="color">
+
+	<target name="color">
+		<get src="${color.url}" 
+			dest="${dep.cache.dir}/color.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/color.js"
+			tofile="${color.js.file}"/>
+	</target>
+</project>

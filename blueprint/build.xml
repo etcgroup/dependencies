@@ -1,0 +1,16 @@
+<project name="blueprint">
+
+	<target name="blueprint">
+		<get src="${blueprint.url}" 
+			dest="${dep.cache.dir}/blueprint-${blueprint.version}.zip" skipexisting="true" verbose="true"/>
+	
+		<unzip src="${dep.cache.dir}/blueprint-${blueprint.version}.zip" 
+			dest="${blueprint.css.dir}">
+			<patternset>
+				<include name="*/blueprint/*.css"/>
+			</patternset>
+			<mapper type="flatten"/>
+		</unzip>
+		
+	</target>
+</project>

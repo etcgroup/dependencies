@@ -1,0 +1,29 @@
+<project name="slickgrid">
+
+	<target name="slickgrid">
+	
+		<get src="${slickgrid.url}" 
+			dest="${dep.cache.dir}/slickgrid-${slickgrid.version}.zip" skipexisting="true" verbose="true"/>
+	
+		<unzip src="${dep.cache.dir}/slickgrid-${slickgrid.version}.zip" 
+			dest="${dep.build.dir}">
+			<patternset>
+				<include name="*/slick.*.js"/>
+				<include name="*/*.css"/>
+				<include name="*/images/*"/>
+			</patternset>
+			<compositemapper>
+				<regexpmapper
+					from="^.*/(.*)\.js"
+					to="js/\1.js"/>
+				<regexpmapper
+					from="^.*/(.*)\.css"
+					to="css/\1.css"/>
+				<regexpmapper
+					from="^.*/images/(.*)"
+					to="css/images/\1"/>
+			</compositemapper>
+		</unzip>
+	
+	</target>
+</project>

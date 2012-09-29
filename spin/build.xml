@@ -1,0 +1,10 @@
+<project name="spin">
+
+	<target name="spin">
+		<get src="${spin.url}" 
+			dest="${dep.cache.dir}/spin-${spin.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/spin-${spin.version}.js"
+			tofile="${spin.js.file}"/>
+	</target>
+</project>

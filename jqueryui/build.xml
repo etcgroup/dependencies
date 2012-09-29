@@ -1,0 +1,29 @@
+<project name="jqueryui">
+
+	<target name="jqueryui">
+		
+		<get src="${jqueryui.url}"
+			dest="${dep.cache.dir}/jqueryui-${jqueryui.version}.zip" skipexisting="true" verbose="true"/>
+		
+		<unzip src="${dep.cache.dir}/jqueryui-${jqueryui.version}.zip" 
+			dest="${dep.build.dir}">
+			<patternset>
+				<include name="js/jquery-ui-*.js"/>
+				<include name="css/**"/>
+			</patternset>
+			<compositemapper>
+				<mapper type="regexp"
+					from="^js/jquery-ui-.*$"
+					to="js/jqueryui.js" />
+				<mapper type="regexp"
+					from="^css/\w+/jquery-ui-.*$"
+					to="css/jqueryui.css" />
+				<mapper type="regexp"
+					from="^css/\w+/images/(.*)$"
+					to="css/images/\1" />
+			</compositemapper>
+		</unzip>
+		
+	</target>
+
+</project>

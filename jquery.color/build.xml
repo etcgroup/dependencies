@@ -1,0 +1,11 @@
+<project name="jquery.color">
+
+	<target name="jquery.color">
+		<get src="${jquery.color.url}"
+			dest="${dep.cache.dir}/jquery.color-${jquery.color.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/jquery.color-${jquery.color.version}.js"
+			  tofile="${jquery.color.js.file}"/>
+	</target>
+
+</project>

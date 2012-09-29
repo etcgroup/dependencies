@@ -1,0 +1,10 @@
+<project name="requirejs-optimizer">
+
+	<target name="requirejs-optimizer">
+		<get src="${requirejs-optimizer.url}" 
+			dest="${dep.cache.dir}/r-${requirejs-optimizer.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/r-${requirejs-optimizer.version}.js"
+			tofile="${requirejs-optimizer.js.file}"/>
+	</target>
+</project>

@@ -1,0 +1,15 @@
+<project name="rhino">
+	
+	<target name="rhino">
+		
+		<get src="${rhino.url}"
+			dest="${dep.cache.dir}/${rhino.zip.file}" skipexisting="true" verbose="true"/>
+			
+		<unzip src="${dep.cache.dir}/${rhino.zip.file}" dest="${dep.build.dir}">
+			<patternset includes="**/${rhino.jar.filename}"/>
+			<mapper type="flatten"/>
+		</unzip>
+		
+	</target>
+	
+</project>

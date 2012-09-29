@@ -1,0 +1,11 @@
+<project name="jquery">
+
+	<target name="jquery">
+		<get src="${jquery.url}"
+			dest="${dep.cache.dir}/jquery-${jquery.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/jquery-${jquery.version}.js"
+			  tofile="${jquery.js.file}"/>
+	</target>
+
+</project>
