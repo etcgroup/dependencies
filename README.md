@@ -13,6 +13,7 @@ We host our own copies of these binaries as downloads within the public-binaries
 In general, we are trying to keep from managing third-party code and binaries as much as possible.
 
 This has three main benefits:
+
 1. We avoid having to store these potentially large files in our projects.
 2. We don't have to manually pull in changes from third parties when they release updates.
 3. By centralizing all of this information in one place, we can reference it
