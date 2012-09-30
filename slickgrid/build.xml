@@ -15,7 +15,7 @@
 			<compositemapper>
 				<regexpmapper
 					from="^.*/(.*)\.js"
-					to="js/\1.js"/>
+					to="js/lib/\1.js"/>
 				<regexpmapper
 					from="^.*/(.*)\.css"
 					to="css/\1.css"/>

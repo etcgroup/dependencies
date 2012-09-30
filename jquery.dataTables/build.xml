@@ -26,7 +26,10 @@
 						from="css/*.css"
 						to="css/jquery.dataTables/*.css"
 						handledirsep="true"/>
-					<identitymapper/>
+					<globmapper
+						from="js/*.js"
+						to="js/lib/*.js"
+						handledirsep="true"/>
 				</compositemapper>
 			</chainedmapper>
 		</unzip>

@@ -15,7 +15,7 @@
 			<compositemapper>
 				<globmapper
 					from="*.js"
-					to="js/*.js"/>
+					to="js/lib/*.js"/>
 				<globmapper
 					from="*.css"
 					to="css/*.css"/>

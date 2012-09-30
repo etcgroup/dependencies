@@ -16,10 +16,10 @@
 				<compositemapper>
 					<globmapper
 						from="d3.v2.min.js"
-						to="js/d3.js"/>
+						to="js/lib/d3.js"/>
 					<globmapper
 						from="*.js"
-						to="js/*.js"/>
+						to="js/lib/*.js"/>
 					<globmapper
 						from="*.css"
 						to="css/*.css"/>

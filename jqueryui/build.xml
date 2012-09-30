@@ -14,7 +14,7 @@
 			<compositemapper>
 				<mapper type="regexp"
 					from="^js/jquery-ui-.*$"
-					to="js/jqueryui.js" />
+					to="js/lib/jqueryui.js" />
 				<mapper type="regexp"
 					from="^css/\w+/jquery-ui-.*$"
 					to="css/jqueryui.css" />
