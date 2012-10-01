@@ -9,12 +9,16 @@
 			dest="${dep.build.dir}">
 			<patternset>
 				<include name="*/slick.*.js"/>
+				<include name="*/plugins/*.js"/>
 				<include name="*/*.css"/>
 				<include name="*/images/*"/>
 			</patternset>
 			<compositemapper>
 				<regexpmapper
-					from="^.*/(.*)\.js"
+					from="^.*/plugins/(.*)\.js"
+					to="js/lib/slick/\1.js"/>
+				<regexpmapper
+					from="^.*/(slick.*)\.js"
 					to="js/lib/\1.js"/>
 				<regexpmapper
 					from="^.*/(.*)\.css"
