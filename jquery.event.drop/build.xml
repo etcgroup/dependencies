@@ -1,0 +1,10 @@
+<project name="jquery.event.drop">
+
+	<target name="jquery.event.drop">
+		<get src="${jquery.event.drop.url}" 
+			dest="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js"
+			tofile="${jquery.event.drop.js.file}"/>
+	</target>
+</project>

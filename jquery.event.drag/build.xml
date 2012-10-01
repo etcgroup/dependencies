@@ -1,0 +1,10 @@
+<project name="jquery.event.drag">
+
+	<target name="jquery.event.drag">
+		<get src="${jquery.event.drag.url}" 
+			dest="${dep.cache.dir}/jquery.event.drag-${jquery.event.drag.version}.js" skipexisting="true" verbose="true"/>
+	
+		<copy file="${dep.cache.dir}/jquery.event.drag-${jquery.event.drag.version}.js"
+			tofile="${jquery.event.drag.js.file}"/>
+	</target>
+</project>
