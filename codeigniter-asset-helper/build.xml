@@ -1,0 +1,22 @@
+<project name="codeigniter-asset-helper">
+
+		<!-- Download and unpack codeigniter-asset-helper -->
+	<target name="codeigniter-asset-helper">
+		<get src="${codeigniter-asset-helper.url}" 
+			dest="${dep.cache.dir}/${codeigniter-asset-helper.zip.file}" skipexisting="true" verbose="true"/>
+			
+		<unzip src="${dep.cache.dir}/${codeigniter-asset-helper.zip.file}" 
+			dest="${dep.build.dir}/application">
+			<!-- Pop files out of the EllisLab-codeigniter-asset-helper-da4f9e1 directory or whatever -->
+			<mapper type="regexp"
+				from="^\w+-codeigniter-asset-helper-\w*/(.*)$"
+				to="\1" />
+			<!-- Exclude files we don't need -->
+			<patternset>
+				<include name="*/config/asset.php"/>
+				<include name="*/helpers/asset_helper.php"/>
+			</patternset>
+		</unzip>
+	</target>
+	
+</project>

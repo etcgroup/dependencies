@@ -1,0 +1,24 @@
+<project name="codeigniter-restserver">
+
+		<!-- Download and unpack codeigniter-restserver -->
+	<target name="codeigniter-restserver">
+		<get src="${codeigniter-restserver.url}" 
+			dest="${dep.cache.dir}/${codeigniter-restserver.zip.file}" skipexisting="true" verbose="true"/>
+			
+		<unzip src="${dep.cache.dir}/${codeigniter-restserver.zip.file}" 
+			dest="${dep.build.dir}">
+			<!-- Pop files out of the EllisLab-codeigniter-restserver-da4f9e1 directory or whatever -->
+			<mapper type="regexp"
+				from="^\w+-codeigniter-restserver-\w*/(.*)$"
+				to="\1" />
+			<!-- Exclude files we don't need -->
+			<patternset>
+				<include name="*/application/controllers/api/key.php"/>
+				<include name="*/application/libraries/Format.php"/>
+				<include name="*/application/libraries/REST_Controller.php"/>
+				<include name="*/application/config/rest.php"/>
+			</patternset>
+		</unzip>
+	</target>
+	
+</project>
