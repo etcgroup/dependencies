@@ -10,6 +10,50 @@
 		</fileset>
 	</include>
 	
+	<target name="fix-module" description="Converts a badly done jQuery plugin to use define" unless="${plugin.is_fixed}">
+		<condition property="plugin.is_fixed">
+			<not>
+				<resourcecontains resource="${plugin.file}" substring="__setup_wrapper__"/>
+			</not>
+		</condition>
+		
+		<antcall target="dependencies.-fix-module" />
+	</target>
+	
+	<target name="-fix-module" unless="${plugin.is_fixed}">
+		
+		<property name="plugin.dependencies" value="'jquery'"/>
+		
+		<tempfile property="temp.file" suffix=".js"/>
+	
+		<concat destfile="${temp.file}">
+			<header>
+			<![CDATA[
+				;(function() {
+				"use strict";
+
+				function __setup_wrapper__($) {
+			]]>
+			</header>
+			<path path="${plugin.file}"/>
+			<footer>
+			<![CDATA[
+				}
+
+				if (typeof define === 'function' && define.amd && define.amd.jQuery) {
+				define([${plugin.dependencies}], __setup_wrapper__);
+				} else {
+				__setup_wrapper__(jQuery);
+				}
+				})();
+			]]>
+			</footer>
+		</concat>
+	
+		<move file="${temp.file}" tofile="${plugin.file}"/>
+		
+	</target>
+	
 	<target name="build">
 		<property file="${dep.base.dir}/${target}/default.properties"/>
 		<antcall target="dependencies.${target}">

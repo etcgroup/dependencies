@@ -6,5 +6,9 @@
 	
 		<copy file="${dep.cache.dir}/jquery.elastic-${jquery.elastic.version}.js"
 			tofile="${jquery.elastic.js.file}"/>
+			
+		<antcall target="dependencies.fix-module">
+			<param name="plugin.file" value="${jquery.elastic.js.file}"/>
+		</antcall>
 	</target>
 </project>

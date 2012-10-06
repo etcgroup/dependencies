@@ -6,6 +6,10 @@
 	
 		<copy file="${dep.cache.dir}/jquery.color-${jquery.color.version}.js"
 			  tofile="${jquery.color.js.file}"/>
+			  
+		<antcall target="dependencies.fix-module">
+			<param name="plugin.file" value="${jquery.color.js.file}"/>
+		</antcall>
 	</target>
 
 </project>

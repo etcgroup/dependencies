@@ -6,5 +6,9 @@
 	
 		<copy file="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js"
 			tofile="${jquery.event.drop.js.file}"/>
+			
+		<antcall target="dependencies.fix-module">
+			<param name="plugin.file" value="${jquery.event.drop.js.file}"/>
+		</antcall>
 	</target>
 </project>

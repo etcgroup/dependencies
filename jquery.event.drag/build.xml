@@ -6,5 +6,9 @@
 	
 		<copy file="${dep.cache.dir}/jquery.event.drag-${jquery.event.drag.version}.js"
 			tofile="${jquery.event.drag.js.file}"/>
+			
+		<antcall target="dependencies.fix-module">
+			<param name="plugin.file" value="${jquery.event.drag.js.file}"/>
+		</antcall>
 	</target>
 </project>

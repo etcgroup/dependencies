@@ -24,6 +24,10 @@
 					to="css/*.gif"/>
 			</compositemapper>
 		</unzip>
+		
+		<antcall target="dependencies.fix-module">
+			<param name="plugin.file" value="${jquery.rating.js.file}"/>
+		</antcall>
 	
 	</target>
 </project>
