@@ -1,0 +1,22 @@
+<project name="codeigniter-for-php-codesniffer">
+
+		<!-- Download and unpack codeigniter-for-php-codesniffer -->
+	<target name="codeigniter-for-php-codesniffer">
+		<get src="${codeigniter-for-php-codesniffer.url}" 
+			dest="${dep.cache.dir}/${codeigniter-for-php-codesniffer.zip.file}" skipexisting="true" verbose="true"/>
+			
+		<unzip src="${dep.cache.dir}/${codeigniter-for-php-codesniffer.zip.file}" 
+			dest="${dep.build.dir}">
+			<!-- Pop files out of the *-codeigniter-for-php-codesniffer-da4f9e1 directory or whatever -->
+			<mapper type="regexp"
+				from="^\w+-CodeIgniter-for-PHP_CodeSniffer-\w*/src/(.*)$"
+				to="CodeIgniter/\1" />
+			<!-- Exclude files we don't need -->
+			<patternset>
+				<include name="*/src/Sniffs/**"/>
+				<include name="*/src/ruleset.xml"/>
+			</patternset>
+		</unzip>
+	</target>
+	
+</project>
