@@ -1,7 +1,11 @@
 <project name="rhino">
 	
-	<target name="rhino">
-		
+	<condition property="rhino.jar.exists">
+		<available file="${rhino.jar.file}" />
+	</condition>
+	
+	<target name="rhino" unless="${rhino.jar.exists}">
+	
 		<get src="${rhino.url}"
 			dest="${dep.cache.dir}/${rhino.zip.file}" skipexisting="true" verbose="true"/>
 			

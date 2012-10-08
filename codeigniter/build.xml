@@ -1,7 +1,11 @@
 <project name="codeigniter">
 
+	<condition property="codeigniter.index.exists">
+		<available file="${dep.build.dir}/index.php" />
+	</condition>
+
 		<!-- Download and unpack CodeIgniter -->
-	<target name="codeigniter">
+	<target name="codeigniter" unless="${codeigniter.index.exists}">
 		<get src="${codeigniter.url}" 
 			dest="${dep.cache.dir}/${codeigniter.zip.file}" skipexisting="true" verbose="true"/>
 			
