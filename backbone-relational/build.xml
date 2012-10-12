@@ -1,10 +1,12 @@
 <project name="backbone-relational">
 
-	<target name="backbone-relational">
-		<get src="${backbone-relational.url}" 
-			dest="${dep.cache.dir}/backbone-relational-${backbone-relational.version}.js" skipexisting="true" verbose="true"/>
-	
-		<copy file="${dep.cache.dir}/backbone-relational-${backbone-relational.version}.js"
-			tofile="${backbone-relational.js.file}"/>
-	</target>
+    <target name="cache">
+        <get src="${backbone-relational.url}"
+             dest="${dep.cache.dir}/backbone-relational-${backbone-relational.version}.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/backbone-relational-${backbone-relational.version}.js"
+              tofile="${backbone-relational.js.file}"/>
+    </target>
 </project>

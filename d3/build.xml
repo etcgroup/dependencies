@@ -1,10 +1,13 @@
 <project name="d3">
 
-	<target name="d3">
-		<get src="${d3.url}" 
+    <target name="cache">
+		<get src="${d3.url}"
 			dest="${dep.cache.dir}/d3-${d3.version}.zip" skipexisting="true" verbose="true"/>
-	
-		<unzip src="${dep.cache.dir}/d3-${d3.version}.zip" 
+    </target>
+
+	<target name="build">
+
+		<unzip src="${dep.cache.dir}/d3-${d3.version}.zip"
 			dest="${dep.build.dir}">
 			<patternset>
 				<include name="*/d3.v2.min.js"/>
@@ -26,6 +29,6 @@
 				</compositemapper>
 			</chainedmapper>
 		</unzip>
-	
+
 	</target>
 </project>

@@ -3,15 +3,16 @@
 	<condition property="jshint.js.exists">
 		<available file="${jshint.js.file}" />
 	</condition>
-	
-	<target name="jshint" unless="${jshint.js.exists}">
-	
+
+	<target name="cache">
 		<get src="${jshint.url}/env/rhino.js"
 			 dest="${dep.cache.dir}/rhino-${jshint.version}.js" skipexisting="true" verbose="true"/>
-		
+
 		<get src="${jshint.url}/jshint.js"
 			 dest="${dep.cache.dir}/jshint-${jshint.version}.js" skipexisting="true" verbose="true"/>
-		
+	</target>
+
+	<target name="build" unless="${jshint.js.exists}">
 		<!-- Build the combined file, ala https://github.com/jshint/jshint/blob/master/Makefile -->
 		<concat destfile="${jshint.js.file}">
 			<filelist dir="${dep.cache.dir}">

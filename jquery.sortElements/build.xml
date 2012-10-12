@@ -1,14 +1,11 @@
 <project name="jquery.sortElements">
+    <target name="cache">
+        <get src="${jquery.sortElements.url}"
+             dest="${dep.cache.dir}/jquery.sortElements-${jquery.sortElements.version}.js" skipexisting="true" verbose="true"/>
+    </target>
 
-	<target name="jquery.sortElements">
-		<get src="${jquery.sortElements.url}" 
-			dest="${dep.cache.dir}/jquery.sortElements-${jquery.sortElements.version}.js" skipexisting="true" verbose="true"/>
-	
-		<copy file="${dep.cache.dir}/jquery.sortElements-${jquery.sortElements.version}.js"
-			tofile="${jquery.sortElements.js.file}"/>
-			
-		<antcall target="dependencies.fix-module">
-			<param name="plugin.file" value="${jquery.sortElements.js.file}"/>
-		</antcall>
-	</target>
+    <target name="build">
+        <copy file="${dep.cache.dir}/jquery.sortElements-${jquery.sortElements.version}.js"
+              tofile="${jquery.sortElements.js.file}"/>
+    </target>
 </project>

@@ -1,10 +1,12 @@
 <project name="backbone">
 
-	<target name="backbone">
-		<get src="${backbone.url}" 
-			dest="${dep.cache.dir}/backbone-${backbone.version}.js" skipexisting="true" verbose="true"/>
-	
-		<copy file="${dep.cache.dir}/backbone-${backbone.version}.js"
-			tofile="${backbone.js.file}"/>
-	</target>
+    <target name="cache">
+        <get src="${backbone.url}"
+             dest="${dep.cache.dir}/backbone-${backbone.version}.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/backbone-${backbone.version}.js"
+              tofile="${backbone.js.file}"/>
+    </target>
 </project>

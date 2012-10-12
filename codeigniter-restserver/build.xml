@@ -1,11 +1,13 @@
 <project name="codeigniter-restserver">
 
-		<!-- Download and unpack codeigniter-restserver -->
-	<target name="codeigniter-restserver">
-		<get src="${codeigniter-restserver.url}" 
+	<target name="cache">
+		<get src="${codeigniter-restserver.url}"
 			dest="${dep.cache.dir}/${codeigniter-restserver.zip.file}" skipexisting="true" verbose="true"/>
-			
-		<unzip src="${dep.cache.dir}/${codeigniter-restserver.zip.file}" 
+	</target>
+
+	<!-- Download and unpack codeigniter-restserver -->
+	<target name="build">
+		<unzip src="${dep.cache.dir}/${codeigniter-restserver.zip.file}"
 			dest="${dep.build.dir}">
 			<!-- Pop files out of the EllisLab-codeigniter-restserver-da4f9e1 directory or whatever -->
 			<mapper type="regexp"
@@ -20,5 +22,5 @@
 			</patternset>
 		</unzip>
 	</target>
-	
+
 </project>

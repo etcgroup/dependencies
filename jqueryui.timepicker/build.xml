@@ -1,15 +1,17 @@
 <project name="jqueryui.timepicker">
 
-	<target name="jqueryui.timepicker">
-		<get src="${jqueryui.timepicker.js.url}"
-			dest="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.js" skipexisting="true" verbose="true"/>
-		<get src="${jqueryui.timepicker.css.url}"
-			dest="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.css" skipexisting="true" verbose="true"/>
-	
-		<copy file="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.js"
-			  tofile="${jqueryui.timepicker.js.file}"/>
-		<copy file="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.css"
-			tofile="${jqueryui.timepicker.css.file}"/>
-	</target>
+    <target name="cache">
+        <get src="${jqueryui.timepicker.js.url}"
+             dest="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.js" skipexisting="true" verbose="true"/>
+        <get src="${jqueryui.timepicker.css.url}"
+             dest="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.css" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.js"
+              tofile="${jqueryui.timepicker.js.file}"/>
+        <copy file="${dep.cache.dir}/jqueryui.timepicker-${jqueryui.timepicker.version}.css"
+              tofile="${jqueryui.timepicker.css.file}"/>
+    </target>
 
 </project>

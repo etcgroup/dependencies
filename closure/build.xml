@@ -1,19 +1,20 @@
 <project name="closure">
 
-		<!-- We need the Google Closure Compiler -->
-	<target name="closure">
-		
-		<get src="${closure.url}"
-			dest="${dep.cache.dir}/${closure.zip.file}" skipexisting="true" verbose="true"/>
-			
-		<unzip src="${dep.cache.dir}/${closure.zip.file}" dest="${dep.build.dir}">
-			<patternset includes="${closure.jar.filename}"/>
-		</unzip>
-		
-		<!-- Setup for closure compiler task -->
-		<!-- http://mark.koli.ch/2010/08/integrating-ant-and-googles-closure-compiler.html -->
-		<taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
-			classpath="${closure.jar.file}"/>
-	</target>
-	
+    <target name="cache">
+        <get src="${closure.url}"
+             dest="${dep.cache.dir}/${closure.zip.file}" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+
+        <unzip src="${dep.cache.dir}/${closure.zip.file}" dest="${dep.build.dir}">
+            <patternset includes="${closure.jar.filename}"/>
+        </unzip>
+
+        <!-- Setup for closure compiler task -->
+        <!-- http://mark.koli.ch/2010/08/integrating-ant-and-googles-closure-compiler.html -->
+        <taskdef name="jscomp" classname="com.google.javascript.jscomp.ant.CompileTask"
+                 classpath="${closure.jar.file}"/>
+    </target>
+
 </project>

@@ -1,10 +1,12 @@
 <project name="color">
 
-	<target name="color">
-		<get src="${color.url}" 
-			dest="${dep.cache.dir}/color.js" skipexisting="true" verbose="true"/>
-	
-		<copy file="${dep.cache.dir}/color.js"
-			tofile="${color.js.file}"/>
-	</target>
+    <target name="cache">
+        <get src="${color.url}"
+             dest="${dep.cache.dir}/color.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/color.js"
+              tofile="${color.js.file}"/>
+    </target>
 </project>

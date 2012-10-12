@@ -1,71 +1,155 @@
 <project name="dependencies">
 
-	<dirname property="dep.base.dir" file="${ant.file.dependencies}"/>
-	<property name="dep.cache.dir" value="${dep.base.dir}/_cache"/>
-	<mkdir dir="${dep.cache.dir}"/>
-	
-	<include>
-		<fileset dir="${dep.base.dir}">
-			<include name="*/build.xml"/>
-		</fileset>
-	</include>
-	
-	<target name="fix-module" description="Converts a badly done jQuery plugin to use define" unless="${plugin.is_fixed}">
-		<condition property="plugin.is_fixed">
-			<not>
-				<resourcecontains resource="${plugin.file}" substring="__setup_wrapper__"/>
-			</not>
-		</condition>
-		
-		<antcall target="dependencies.-fix-module" />
-	</target>
-	
-	<target name="-fix-module" unless="${plugin.is_fixed}">
-		
-		<property name="plugin.dependencies" value="'jquery'"/>
-		
-		<tempfile property="temp.file" suffix=".js"/>
-	
-		<concat destfile="${temp.file}">
-			<header>
-			<![CDATA[
-				;(function() {
-				"use strict";
+    <!-- Load the ant-contrib tasks -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml" onerror="fail"/>
 
-				function __setup_wrapper__($) {
-			]]>
-			</header>
-			<path path="${plugin.file}"/>
-			<footer>
-			<![CDATA[
-				}
+    <dirname property="dep.base.dir" file="${ant.file.dependencies}"/>
+    <property name="dep.cache.dir" value="${dep.base.dir}/_cache"/>
+    <mkdir dir="${dep.cache.dir}"/>
 
-				if (typeof define === 'function' && define.amd && define.amd.jQuery) {
-				define([${plugin.dependencies}], __setup_wrapper__);
-				} else {
-				__setup_wrapper__(jQuery);
-				}
-				})();
-			]]>
-			</footer>
-		</concat>
-	
-		<move file="${temp.file}" tofile="${plugin.file}"/>
-		
-	</target>
-	
-	<target name="build">
-		<property file="${dep.base.dir}/${target}/default.properties"/>
-		<antcall target="dependencies.${target}">
-			<param name="${target}.basedir" value="${dep.base.dir}/${target}"/>
-			<param name="dep.cache.dir" value="${dep.cache.dir}/${target}"/>
-		</antcall>
-	</target>
-	
-	<target name="clean-cache">
-		<delete>
-			<fileset dir="${dep.cache.dir}"/>
-		</delete>
-	</target>
-	
+    <macrodef name="fixmodule" description="Converts a badly done jQuery plugin to use define">
+        <attribute name="dep"/>
+        <attribute name="file"/>
+        <attribute name="requires" default="'jquery'"/>
+        <sequential>
+            <if>
+                <not>
+                    <resourcecontains resource="@{file}" substring="__setup_wrapper__"/>
+                </not>
+                <then>
+                    <echo>Modularizing @{file}</echo>
+
+                    <local name="temp.file"/>
+                    <tempfile property="temp.file" suffix="_@{dep}.js"/>
+
+                    <concat destfile="${temp.file}">
+                        <header>
+                            <![CDATA[
+                                ;(function() {
+                                "use strict";
+
+                                function __setup_wrapper__() {
+                            ]]>
+                        </header>
+                        <path path="@{file}"/>
+                        <footer>
+                            <![CDATA[
+                                }
+
+                                if (typeof define === 'function' && define.amd && define.amd.jQuery) {
+                                define([@{requires}], __setup_wrapper__);
+                                } else {
+                                __setup_wrapper__();
+                                }
+                                })();
+                            ]]>
+                        </footer>
+                    </concat>
+
+                    <move file="${temp.file}" tofile="@{file}"/>
+                </then>
+                <else>
+                    <echo>Already modularized</echo>
+                </else>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="dependency">
+        <attribute name="name"/>
+        <attribute name="dest"/>
+        <element name="overrides" implicit="true" optional="true"/>
+        <sequential>
+            <echo>=== Loading dependency: @{name} ===</echo>
+
+            <!-- We define dep.build.dir locally using dest -->
+            <local name="dep.build.dir"/>
+            <property name="dep.build.dir" value="@{dest}"/>
+
+            <!-- Allow the caller to override any properties for this package -->
+            <overrides/>
+
+            <!-- Now load the properties file for this dependency -->
+            <property file="${dep.base.dir}/@{name}/default.properties"/>
+
+            <!-- Make sure the cache is prepared -->
+            <mkdir dir="${dep.cache.dir}/@{name}"/>
+
+            <if>
+                <not>
+                    <available file="${dep.base.dir}/@{name}/build.xml"/>
+                </not>
+                <then>
+                    <fail message="Unknown dependency '@{name}'."/>
+                </then>
+            </if>
+
+            <ant antfile="${dep.base.dir}/@{name}/build.xml"
+                 inheritAll="true" useNativeBasedir="true">
+                <property name="dep.cache.dir" value="${dep.cache.dir}/@{name}"/>
+                <property name="dep.build.dir" value="${dep.build.dir}"/>
+                <target name="cache"/>
+                <target name="build"/>
+            </ant>
+
+            <!-- See if any files need fixing -->
+            <if>
+                <isset property="@{name}.module.files"/>
+                <then>
+
+                    <local name="module.files"/>
+                    <propertycopy property="module.files" from="@{name}.module.files"/>
+
+                    <local name="module.requires"/>
+                    <property name="module.requires" value="'jquery'"/>
+                    <propertycopy property="module.requires" from="@{name}.module.requires" override="true" silent="true"/>
+
+                    <for list="${module.files}" param="file">
+                        <sequential>
+                            <fixmodule dep="@{name}" file="@{file}" requires="${module.requires}"/>
+                        </sequential>
+                    </for>
+                </then>
+            </if>
+        </sequential>
+    </macrodef>
+
+    <target name="clean-cache" description="Deletes all of the cached dependencies.">
+        <delete includeemptydirs="true">
+            <fileset dir="${dep.cache.dir}"/>
+        </delete>
+        <echo>Cache deleted</echo>
+    </target>
+
+    <target name="prepare-cache" description="Downloads all of the cacheable dependencies">
+
+        <for param="current.dir" parallel="true">
+            <path>
+                <dirset dir="${dep.base.dir}">
+                    <include name="*"/>
+                    <exclude name="_*"/>
+                    <exclude name="nbproject"/>
+                </dirset>
+            </path>
+            <sequential>
+                <local name="name"/>
+                <basename property="name" file="@{current.dir}"/>
+
+                <!-- Get the properties for this dependency -->
+                <property file="@{current.dir}/default.properties"/>
+
+                <!-- Make sure the cache is prepared -->
+                <mkdir dir="${dep.cache.dir}/${name}"/>
+
+
+                <ant antfile="@{current.dir}/build.xml"
+                     inheritAll="true" useNativeBasedir="true">
+                    <property name="dep.cache.dir" value="${dep.cache.dir}/${name}"/>
+                    <property name="dep.build.dir" value="_trash"/>
+                    <target name="cache"/>
+                </ant>
+            </sequential>
+        </for>
+    </target>
+
 </project>

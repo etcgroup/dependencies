@@ -1,33 +1,29 @@
 <project name="jquery.rating">
+    <target name="cache">
+        <get src="${jquery.rating.url}"
+             dest="${dep.cache.dir}/jquery.rating-${jquery.rating.version}.zip" skipexisting="true" verbose="true"/>
+    </target>
 
-	<target name="jquery.rating">
-	
-		<get src="${jquery.rating.url}" 
-			dest="${dep.cache.dir}/jquery.rating-${jquery.rating.version}.zip" skipexisting="true" verbose="true"/>
-	
-		<unzip src="${dep.cache.dir}/jquery.rating-${jquery.rating.version}.zip" 
-			dest="${dep.build.dir}">
-			<patternset>
-				<include name="jquery.rating.js"/>
-				<include name="jquery.rating.css"/>
-				<include name="*.gif"/>
-			</patternset>
-			<compositemapper>
-				<globmapper
-					from="*.js"
-					to="js/lib/*.js"/>
-				<globmapper
-					from="*.css"
-					to="css/*.css"/>
-				<globmapper
-					from="*.gif"
-					to="css/*.gif"/>
-			</compositemapper>
-		</unzip>
-		
-		<antcall target="dependencies.fix-module">
-			<param name="plugin.file" value="${jquery.rating.js.file}"/>
-		</antcall>
-	
-	</target>
+    <target name="build">
+        <unzip src="${dep.cache.dir}/jquery.rating-${jquery.rating.version}.zip"
+               dest="${dep.build.dir}">
+            <patternset>
+                <include name="jquery.rating.js"/>
+                <include name="jquery.rating.css"/>
+                <include name="*.gif"/>
+            </patternset>
+            <compositemapper>
+                <globmapper
+                    from="*.js"
+                    to="js/lib/*.js"/>
+                <globmapper
+                    from="*.css"
+                    to="css/*.css"/>
+                <globmapper
+                    from="*.gif"
+                    to="css/*.gif"/>
+            </compositemapper>
+        </unzip>
+
+    </target>
 </project>

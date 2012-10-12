@@ -1,14 +1,12 @@
 <project name="jquery.event.drop">
 
-	<target name="jquery.event.drop">
-		<get src="${jquery.event.drop.url}" 
-			dest="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js" skipexisting="true" verbose="true"/>
-	
-		<copy file="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js"
-			tofile="${jquery.event.drop.js.file}"/>
-			
-		<antcall target="dependencies.fix-module">
-			<param name="plugin.file" value="${jquery.event.drop.js.file}"/>
-		</antcall>
-	</target>
+    <target name="cache">
+        <get src="${jquery.event.drop.url}"
+             dest="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/jquery.event.drop-${jquery.event.drop.version}.js"
+              tofile="${jquery.event.drop.js.file}"/>
+    </target>
 </project>

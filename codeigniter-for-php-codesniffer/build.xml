@@ -1,11 +1,13 @@
 <project name="codeigniter-for-php-codesniffer">
 
-		<!-- Download and unpack codeigniter-for-php-codesniffer -->
-	<target name="codeigniter-for-php-codesniffer">
-		<get src="${codeigniter-for-php-codesniffer.url}" 
+	<target name="cache">
+		<get src="${codeigniter-for-php-codesniffer.url}"
 			dest="${dep.cache.dir}/${codeigniter-for-php-codesniffer.zip.file}" skipexisting="true" verbose="true"/>
-			
-		<unzip src="${dep.cache.dir}/${codeigniter-for-php-codesniffer.zip.file}" 
+	</target>
+
+	<!-- Download and unpack codeigniter-for-php-codesniffer -->
+	<target name="build">
+		<unzip src="${dep.cache.dir}/${codeigniter-for-php-codesniffer.zip.file}"
 			dest="${dep.build.dir}">
 			<!-- Pop files out of the *-codeigniter-for-php-codesniffer-da4f9e1 directory or whatever -->
 			<mapper type="regexp"
@@ -18,5 +20,5 @@
 			</patternset>
 		</unzip>
 	</target>
-	
+
 </project>

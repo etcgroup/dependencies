@@ -1,11 +1,13 @@
 <project name="slickgrid">
 
-	<target name="slickgrid">
-	
-		<get src="${slickgrid.url}" 
+	<target name="cache">
+		<get src="${slickgrid.url}"
 			dest="${dep.cache.dir}/slickgrid-${slickgrid.version}.zip" skipexisting="true" verbose="true"/>
-	
-		<unzip src="${dep.cache.dir}/slickgrid-${slickgrid.version}.zip" 
+	</target>
+
+	<target name="build">
+
+		<unzip src="${dep.cache.dir}/slickgrid-${slickgrid.version}.zip"
 			dest="${dep.build.dir}">
 			<patternset>
 				<include name="*/slick.*.js"/>
@@ -28,11 +30,6 @@
 					to="css/images/\1"/>
 			</compositemapper>
 		</unzip>
-	
-		<antcall target="dependencies.fix-module">
-			<param name="plugin.file" value="${dep.build.dir}/js/lib/slick.grid.js"/>
-			<param name="plugin.dependencies" value="'jquery', 'jquery.event.drag'"/>
-		</antcall>
-	
+
 	</target>
 </project>

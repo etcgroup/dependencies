@@ -1,39 +1,41 @@
 <project name="jquery.dataTables">
 
-	<target name="jquery.dataTables">
-		
-		<get src="${jquery.dataTables.url}"
-			dest="${dep.cache.dir}/jquery.dataTables-${jquery.dataTables.version}.zip" skipexisting="true" verbose="true"/>
-		
-		<unzip src="${dep.cache.dir}/jquery.dataTables-${jquery.dataTables.version}.zip" 
-			dest="${dep.build.dir}">
-			<patternset>
-				<include name="**/media/js/jquery.dataTables.js"/>
-				<include name="**/media/css/jquery.dataTables*.css"/>
-				<include name="**/media/images/*.png"/>
-			</patternset>
-			<chainedmapper>
-				<regexpmapper
-					from="^DataTables-DataTables-\w*/media/(.*)$"
-					to="\1"
-					handledirsep="true"/>
-				<compositemapper>
-					<globmapper
-						from="images/*"
-						to="css/images/*"	
-						handledirsep="true"/>
-					<globmapper
-						from="css/*.css"
-						to="css/jquery.dataTables/*.css"
-						handledirsep="true"/>
-					<globmapper
-						from="js/*.js"
-						to="js/lib/*.js"
-						handledirsep="true"/>
-				</compositemapper>
-			</chainedmapper>
-		</unzip>
-		
-	</target>
+    <target name="cache">
+        <get src="${jquery.dataTables.url}"
+             dest="${dep.cache.dir}/jquery.dataTables-${jquery.dataTables.version}.zip" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+
+        <unzip src="${dep.cache.dir}/jquery.dataTables-${jquery.dataTables.version}.zip"
+               dest="${dep.build.dir}">
+            <patternset>
+                <include name="**/media/js/jquery.dataTables.js"/>
+                <include name="**/media/css/jquery.dataTables*.css"/>
+                <include name="**/media/images/*.png"/>
+            </patternset>
+            <chainedmapper>
+                <regexpmapper
+                    from="^DataTables-DataTables-\w*/media/(.*)$"
+                    to="\1"
+                    handledirsep="true"/>
+                <compositemapper>
+                    <globmapper
+                        from="images/*"
+                        to="css/images/*"
+                        handledirsep="true"/>
+                    <globmapper
+                        from="css/*.css"
+                        to="css/jquery.dataTables/*.css"
+                        handledirsep="true"/>
+                    <globmapper
+                        from="js/*.js"
+                        to="js/lib/*.js"
+                        handledirsep="true"/>
+                </compositemapper>
+            </chainedmapper>
+        </unzip>
+
+    </target>
 
 </project>
