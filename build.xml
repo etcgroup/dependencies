@@ -26,7 +26,6 @@
                         <header>
                             <![CDATA[
                                 ;(function() {
-                                "use strict";
 
                                 function __setup_wrapper__() {
                             ]]>
