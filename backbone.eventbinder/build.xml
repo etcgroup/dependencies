@@ -1,0 +1,12 @@
+<project name="backbone.eventbinder">
+
+    <target name="cache">
+        <get src="${backbone.eventbinder.url}"
+             dest="${dep.cache.dir}/backbone.eventbinder-${backbone.eventbinder.version}.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/backbone.eventbinder-${backbone.eventbinder.version}.js"
+              tofile="${backbone.eventbinder.js.file}"/>
+    </target>
+</project>
