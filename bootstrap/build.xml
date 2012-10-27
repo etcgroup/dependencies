@@ -16,7 +16,7 @@
             <compositemapper>
                 <regexpmapper from=".*/docs/assets/css/(.*)" to="css/\1"/>
                 <regexpmapper from=".*/docs/assets/img/(.*)" to="img/\1"/>
-                <regexpmapper from=".*/docs/assets/js/(.*)" to="js/lib/\1"/>
+                <regexpmapper from=".*/docs/assets/js/bootstrap.min.js" to="js/lib/bootstrap.js"/>
             </compositemapper>
 
         </unzip>
