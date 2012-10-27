@@ -1,0 +1,24 @@
+<project name="bootstrap">
+
+    <target name="cache">
+        <get src="${bootstrap.url}"
+             dest="${dep.cache.dir}/bootstrap-${bootstrap.version}.zip" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <unzip src="${dep.cache.dir}/bootstrap-${bootstrap.version}.zip"
+               dest="${dep.build.dir}">
+            <patternset>
+                <include name="*/docs/assets/css/bootstrap*.css"/>
+                <include name="*/docs/assets/img/glyphicons*.png"/>
+                <include name="*/docs/assets/js/bootstrap.min.js"/>
+            </patternset>
+            <compositemapper>
+                <regexpmapper from=".*/docs/assets/css/(.*)" to="css/\1"/>
+                <regexpmapper from=".*/docs/assets/img/(.*)" to="img/\1"/>
+                <regexpmapper from=".*/docs/assets/js/(.*)" to="js/lib/\1"/>
+            </compositemapper>
+
+        </unzip>
+    </target>
+</project>
