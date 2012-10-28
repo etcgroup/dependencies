@@ -1,0 +1,12 @@
+<project name="requirejs-text">
+
+    <target name="cache">
+        <get src="${requirejs-text.url}"
+             dest="${dep.cache.dir}/requirejs-text-${requirejs-text.version}.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/requirejs-text-${requirejs-text.version}.js"
+              tofile="${requirejs-text.js.file}"/>
+    </target>
+</project>
