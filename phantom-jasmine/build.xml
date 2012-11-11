@@ -1,0 +1,17 @@
+<project name="phantom-jasmine">
+
+    <condition property="phantom-jasmine.dir.exists">
+        <available file="${phantom-jasmine.dir}" />
+    </condition>
+
+    <target name="cache">
+        <get src="${phantom-jasmine.url}"
+             dest="${dep.cache.dir}/${phantom-jasmine.zip.file}" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build" unless="${phantom-jasmine.dir.exists}">
+        <unzip src="${dep.cache.dir}/${phantom-jasmine.zip.file}" dest="${phantom-jasmine.dir}">
+            <cutdirsmapper dirs="1"/>
+        </unzip>
+    </target>
+</project>
