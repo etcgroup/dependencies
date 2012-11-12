@@ -1,0 +1,12 @@
+<project name="jasmine-jquery">
+
+    <target name="cache">
+        <get src="${jasmine-jquery.url}"
+             dest="${dep.cache.dir}/jasmine-jquery-${jasmine-jquery.version}.js" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build">
+        <copy file="${dep.cache.dir}/jasmine-jquery-${jasmine-jquery.version}.js"
+              tofile="${jasmine-jquery.js.file}"/>
+    </target>
+</project>
