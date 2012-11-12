@@ -1,0 +1,18 @@
+<project name="jasmine-reporters">
+
+    <condition property="jasmine-reporters.dir.exists">
+        <available file="${jasmine-reporters.dir}" />
+    </condition>
+
+    <target name="cache">
+        <get src="${jasmine-reporters.url}"
+             dest="${dep.cache.dir}/jasmine-reporters-${jasmine-reporters.version}.zip" skipexisting="true" verbose="true"/>
+    </target>
+
+    <target name="build" unless="jasmine-reporters.dir.exists">
+        <unzip src="${dep.cache.dir}/${jasmine-reporters.zip.file}" dest="${jasmine-reporters.dir}">
+            <patternset includes="*/src/jasmine.*.js"/>
+            <cutdirsmapper dirs="2"/>
+        </unzip>
+    </target>
+</project>
